@@ -1,0 +1,38 @@
+version: '3.6'
+services:
+  safrs-postgis:
+    build:
+      context: .
+    environment:
+      CONFIG_MODULE: config/base.py
+      FLASK_APP: app:create_app
+      FLASK_ENV: development
+      DB_HOST: psql-postgis
+      DB_NAME: safrs
+      DB_USER: postgres
+      DB_PWD: password
+      #PYTHONPATH: "${PYTHONPATH}:/app/safrs:/app/src/safrs"
+      SWAGGER_HOST: 192.168.235.136
+      SWAGGER_PORT: 1237
+    ports:
+      - 1237:80
+    volumes:
+      - .:/app
+    restart: always
+    networks:
+      - develop
+
+  psql-postgis:
+    image: mdillon/postgis
+    container_name: psql-postgis
+    ports:
+      - 54321:5432
+    restart: always
+    networks:
+      - develop
+    environment:
+        POSTGRES_PASSWORD: password
+
+networks:
+  develop:
+    name: develop
