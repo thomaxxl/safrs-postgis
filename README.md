@@ -1,6 +1,6 @@
 ## Overview
 
-Docker image for safrs + psql + postgis
+Docker image for safrs + postgres + postgis
 
 ## Run
 
