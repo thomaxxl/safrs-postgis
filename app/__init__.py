@@ -56,7 +56,6 @@ class City(SAFRSBase, db.Model):
         # convert the json to geometry database type
         geo = kwargs.get("geo")
         kwargs["geo"] = str(to_shape(from_shape(geometry.shape(geo))))
-        #print(kwargs["geo"])
         super().__init__(*args, **kwargs)
 
     def __repr__(self):
@@ -93,7 +92,7 @@ def create_api(app, HOST="localhost", PORT=5000, API_PREFIX=""):
     db.session.add(test_city)
     db.session.commit()
     api.expose_object(City)
-    print("Starting API: http://{}:{}/{}".format(HOST, PORT, API_PREFIX))
+    safrs.log.info(f"Starting API: http://{HOST}:{PORT}/{API_PREFIX}")
 
 
 
