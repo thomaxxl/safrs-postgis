@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
 
-# Migrate database
-#flask db migrate
-#flask db upgrade
+
+if [[ -z ${SWAGGER_HOST} ]]; then
+  echo "Warning: SWAGGER_HOST environment variable not set, using localhost" >&2
+  export SWAGGER_HOST=localhost
+fi
 
 init_db(){
   echo "INIT DB"
